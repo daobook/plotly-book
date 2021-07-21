@@ -1,32 +1,43 @@
 format: jb-book
 root: README
 parts:
-- caption: 教程
+- caption: 导航
   chapters:
-  - file: start/index
-    sections:
-    - glob: start/**
-  - file: basics/index
-    sections:
-    - glob: basics/**
-
-- caption: 主题
+  - file: tutorial/index
+- caption: 基本原理
+  numbered: 3
   chapters:
-  - file: topics/index
+  - file: tutorial/fundamentals/index
     sections:
-    - glob: topics/**
-
-- caption: 原理
+      - glob: tutorial/fundamentals/**
+- caption: 手册
   chapters:
-  - file: principle/index
+  - file: tutorial/basic-charts/index
     sections:
-    - glob: principle/**
-
-- caption: 参考
-  chapters:
-  - file: reference/index
+      - glob: tutorial/basic-charts/**
+  - file: tutorial/3d-charts/index
     sections:
-    - glob: reference/**
+    - glob: tutorial/3d-charts/**
+  - file: tutorial/scientific-charts/index
+    sections:
+    - glob: tutorial/scientific-charts/**
+  - file: tutorial/maps/index
+    sections:
+    - glob: tutorial/maps/**
+  - file: tutorial/statistical-charts/index
+    sections:
+    - glob: tutorial/statistical-charts/**
+  - file: tutorial/financial-charts/index
+    sections:
+    - glob: tutorial/financial-charts/**
+  - file: tutorial/controls/index
+    sections:
+    - glob: tutorial/controls/**
+  - file: tutorial/chart-events/index
+    sections:
+    - glob: tutorial/chart-events/**
+  - file: tutorial/animations/index
+  - file: tutorial/dash/index
 
 - caption: 混沌
   chapters:

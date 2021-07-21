@@ -18,3 +18,5 @@ dash-xinet -i https://pypi.org/simple/
 sanstyle -i https://pypi.org/simple/ 
 Flask-Caching
 redis
+kaleido
+plotly-geo
