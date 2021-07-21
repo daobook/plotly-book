@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebGL vs SVG</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/page.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/xin-css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3pro.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3mobile.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "xinetzone/plotly-book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://xinetzone.github.io/plotly-book/tutorial/basic-charts/webgl-vs-svg.html" />
+    <link rel="shortcut icon" href="../../_static/page-logo.jfif"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="3D 图表" href="../3d-charts/index.html" />
+    <link rel="prev" title="treemaps" href="treemaps.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/logo.jpg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  导航
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     plotly.py
+    </span>
+   </code>
+   概览
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  基本原理
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../fundamentals/index.html">
+   1. 基础（处理中）
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/00_figure-structure.html">
+     1.1. 图数据结构
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/01_creating-and-updating-figures.html">
+     1.2.
+     <span class="fa fa-leaf text-success mr-1">
+     </span>
+     创建和更新图
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/02_renderers.html">
+     1.3.
+     <span class="fa fa-leaf text-success mr-1">
+     </span>
+     图渲染
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/03_plotly-express.html">
+     1.4. Plotly Express
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/05_static-image-export.html">
+     1.5. 导出静态图像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/06_templates.html">
+     1.6. Theming and templates
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/09_configuration-options.html">
+     1.7. Configuration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/12_figure-labels.html">
+     1.8. Setting the Font, Title, Legend Entries, and Axis Titles
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/13_axes.html">
+     1.9. Axes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/14_legend.html">
+     1.10. Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/15_multiple-axes.html">
+     1.11. 多轴图
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/16_subplots.html">
+     1.12. Subplots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/18_px-arguments.html">
+     1.13. 操作各种类型的数据
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/20_colorscales.html">
+     1.14. Continuous Color Scales and Color Bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/21_text-and-annotations.html">
+     1.15. Text and Annotations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/22_hover-text-and-formatting.html">
+     1.16. hover-text-and-formatting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/23_images.html">
+     1.17. Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/24_shapes.html">
+     1.18. 几何形状
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/28_discrete-color.html">
+     1.19. discrete-color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/29_styling-plotly-express.html">
+     1.20. styling-plotly-express
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/31_pandas-backend.html">
+     1.21. pandas-backend
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/32_figure-factories.html">
+     1.22. Figure Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/33_wide-form.html">
+     1.23. wide-form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/34_graph-objects.html">
+     1.24. 图对象
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fundamentals/36_horizontal-vertical-shapes.html">
+     1.25. Python 中的水平线、垂线和矩形
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  手册
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   基础图表
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="bar-charts.html">
+     Bar Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="bubble-charts.html">
+     Bubble Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="dot-plots.html">
+     Dot Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="filled-area-plots.html">
+     Python 中的填充区域 plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gantt.html">
+     Gantt Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="line-and-scatter.html">
+     Scatter Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="line-charts.html">
+     Line Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pie-charts.html">
+     Pie Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="sunburst-charts.html">
+     sunburst-charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="treemaps.html">
+     treemaps
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     WebGL vs SVG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3d-charts/index.html">
+   3D 图表
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-bubble-charts.html">
+     3D Bubble Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-camera-controls.html">
+     3D Camera Controls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-isosurface-plots.html">
+     3d-isosurface-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-line-plots.html">
+     3d-line-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-mesh.html">
+     3d-mesh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-scatter-plots.html">
+     3D Scatter Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-surface-plots.html">
+     3D Surface Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-volume-plots.html">
+     3d-volume-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/cone-plot.html">
+     cone-plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/streamtube-plot.html">
+     streamtube-plot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../scientific-charts/index.html">
+   科学
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/carpet-plot.html">
+     Carpet Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/contour-plots.html">
+     Contour Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/heatmaps.html">
+     Heatmaps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/imshow.html">
+     Imshow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/parallel-coordinates-plot.html">
+     parallel-coordinates-plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/polar-chart.html">
+     Polar Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/radar-chart.html">
+     radar-chart
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/ternary-contour.html">
+     ternary-contour
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/ternary-plots.html">
+     Ternary Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/wind-rose-charts.html">
+     wind-rose-charts
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../maps/index.html">
+   地理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/choropleth-maps.html">
+     Choropleth Maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/county-choropleth.html">
+     USA County Choropleth Maps in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/lines-on-mapbox.html">
+     lines-on-mapbox
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/lines-on-maps.html">
+     lines-on-maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/mapbox-county-choropleth.html">
+     mapbox-county-choropleth
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/mapbox-density-heatmaps.html">
+     mapbox-density-heatmaps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/mapbox-layers.html">
+     mapbox-layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/scatter-plots-on-maps.html">
+     scatter-plots-on-maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/scattermapbox.html">
+     scattermapbox
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistical-charts/index.html">
+   统计
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/2D-Histogram.html">
+     2D Histogram
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/2d-histogram-contour.html">
+     2D Histogram Contour
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/box-plots.html">
+     Box Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/error-bars.html">
+     Error Bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/facet-plots.html">
+     Facet and Trellis Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/histograms.html">
+     Histograms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/linear-fits.html">
+     linear-fits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/marginal-plots.html">
+     marginal-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/parallel-categories-diagram.html">
+     parallel-categories-diagram
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/splom.html">
+     Scatterplot Matrix
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/strip-charts.html">
+     strip-charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/violin.html">
+     violin
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../financial-charts/index.html">
+   金融
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/candlestick-charts.html">
+     Candlestick Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/funnel-charts.html">
+     Funnel Chart
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/ohlc-charts.html">
+     OHLC Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/time-series.html">
+     time-series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/waterfall-charts.html">
+     Waterfall Charts
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../controls/index.html">
+   控件
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../controls/custom-buttons.html">
+     自定义按钮
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../controls/dropdowns.html">
+     Dropdown Menus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../controls/sliders.html">
+     Sliders
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../chart-events/index.html">
+   <span class="fa fa-leaf text-success mr-1">
+   </span>
+   Jupyter Widgets 交互
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/00_figurewidget.html">
+     Plotly FigureWidget 概述
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/01_jupyter-lab-tools.html">
+     为 Output 创建一个新视图
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/02_figurewidget-app.html">
+     使用 FigureWidget ipywidgets 进行交互式数据分析
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/03_click-events.html">
+     使用点击回调更新点
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animations/index.html">
+   动画
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dash/index.html">
+   Dash
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  混沌
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../about/index.html">
+   关于
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../about/zreferences.html">
+     参考文献
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../CHANGELOG.html">
+     变更日志
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://xinetzone.github.io/sanstyle-book/">
+   Sanstyle Book
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../other/index.html">
+   外部资源
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../other/topic.html">
+     话题
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <div class="w3-padding w3-card-4 w3-pale-green">
+  <a href="https://github.com/xinetzone" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub"
+      data-position="top" data-delay="50">
+      <i class="fab fa-github"></i>
+  </a>
+  <a href="mailto:q735613050@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top"
+      data-delay="50">
+      <i class="fas fa-envelope-open"></i>
+  </a>
+  <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=735613050" class="tooltipped"
+      target="_blank" data-tooltip="QQ联系我: 735613050" data-position="top" data-delay="50">
+      <i class="fab fa-qq"></i>
+  </a>
+  <a href="https://www.zhihu.com/people/liu-xin-wei-55" class="tooltipped" target="_blank"
+      data-tooltip="关注我的知乎: liu-xin-wei-55" data-position="top" data-delay="50">
+      <i class="fab fa-zhihu1">知</i>
+  </a>
+  <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/xinet" class="tooltipped"
+      data-tooltip="领英联系我: xinet" data-position="top" data-delay="50">
+      <i class="fab fa-linkedin"></i>
+  </a>
+  <div><a href="https://github.com/xinetzone/sanstyle">上善若水</a> 版权所有</div>
+</div>
+
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/tutorial/basic-charts/webgl-vs-svg.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/xinetzone/plotly-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/xinetzone/plotly-book/issues/new?title=Issue%20on%20page%20%2Ftutorial/basic-charts/webgl-vs-svg.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="webgl-vs-svg">
+<h1>WebGL vs SVG<a class="headerlink" href="#webgl-vs-svg" title="永久链接至标题">¶</a></h1>
+<p>参考：<a class="reference external" href="https://plotly.com/python/webgl-vs-svg/">WebGL vs SVG | Python | Plotly</a></p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xinetzone/plotly-book",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./tutorial/basic-charts"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="treemaps.html" title="previous page">treemaps</a>
+    <a class='right-next' id="next-link" href="../3d-charts/index.html" title="next page">3D 图表</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            <p class="w3-card w3-pale-blue w3-padding">
+  Copyright © 2021
+  <a href="https://sanstylelab.github.io/">SanstyleLab</a> | 
+  Powered by <a href="https://github.com/executablebooks/jupyter-book">Jupyter Book</a>.
+</p>
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

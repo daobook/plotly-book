@@ -1,0 +1,1260 @@
+
+<!DOCTYPE html>
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.1. 图数据结构</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/page.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/xin-css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3pro.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3mobile.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "xinetzone/plotly-book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://xinetzone.github.io/plotly-book/tutorial/fundamentals/00_figure-structure.html" />
+    <link rel="shortcut icon" href="../../_static/page-logo.jfif"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="1.2. 创建和更新图" href="01_creating-and-updating-figures.html" />
+    <link rel="prev" title="1. 基础（处理中）" href="index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/logo.jpg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  导航
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     plotly.py
+    </span>
+   </code>
+   概览
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  基本原理
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   1. 基础（处理中）
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     1.1. 图数据结构
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_creating-and-updating-figures.html">
+     1.2.
+     <span class="fa fa-leaf text-success mr-1">
+     </span>
+     创建和更新图
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_renderers.html">
+     1.3.
+     <span class="fa fa-leaf text-success mr-1">
+     </span>
+     图渲染
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_plotly-express.html">
+     1.4. Plotly Express
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_static-image-export.html">
+     1.5. 导出静态图像
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_templates.html">
+     1.6. Theming and templates
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_configuration-options.html">
+     1.7. Configuration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="12_figure-labels.html">
+     1.8. Setting the Font, Title, Legend Entries, and Axis Titles
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="13_axes.html">
+     1.9. Axes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="14_legend.html">
+     1.10. Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="15_multiple-axes.html">
+     1.11. 多轴图
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="16_subplots.html">
+     1.12. Subplots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="18_px-arguments.html">
+     1.13. 操作各种类型的数据
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="20_colorscales.html">
+     1.14. Continuous Color Scales and Color Bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="21_text-and-annotations.html">
+     1.15. Text and Annotations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="22_hover-text-and-formatting.html">
+     1.16. hover-text-and-formatting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="23_images.html">
+     1.17. Images
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="24_shapes.html">
+     1.18. 几何形状
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="28_discrete-color.html">
+     1.19. discrete-color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="29_styling-plotly-express.html">
+     1.20. styling-plotly-express
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="31_pandas-backend.html">
+     1.21. pandas-backend
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="32_figure-factories.html">
+     1.22. Figure Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="33_wide-form.html">
+     1.23. wide-form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="34_graph-objects.html">
+     1.24. 图对象
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="36_horizontal-vertical-shapes.html">
+     1.25. Python 中的水平线、垂线和矩形
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  手册
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../basic-charts/index.html">
+   基础图表
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/bar-charts.html">
+     Bar Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/bubble-charts.html">
+     Bubble Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/dot-plots.html">
+     Dot Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/filled-area-plots.html">
+     Python 中的填充区域 plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/gantt.html">
+     Gantt Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/line-and-scatter.html">
+     Scatter Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/line-charts.html">
+     Line Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/pie-charts.html">
+     Pie Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/sunburst-charts.html">
+     sunburst-charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/treemaps.html">
+     treemaps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basic-charts/webgl-vs-svg.html">
+     WebGL vs SVG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../3d-charts/index.html">
+   3D 图表
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-bubble-charts.html">
+     3D Bubble Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-camera-controls.html">
+     3D Camera Controls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-isosurface-plots.html">
+     3d-isosurface-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-line-plots.html">
+     3d-line-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-mesh.html">
+     3d-mesh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-scatter-plots.html">
+     3D Scatter Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-surface-plots.html">
+     3D Surface Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/3d-volume-plots.html">
+     3d-volume-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/cone-plot.html">
+     cone-plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../3d-charts/streamtube-plot.html">
+     streamtube-plot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../scientific-charts/index.html">
+   科学
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/carpet-plot.html">
+     Carpet Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/contour-plots.html">
+     Contour Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/heatmaps.html">
+     Heatmaps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/imshow.html">
+     Imshow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/parallel-coordinates-plot.html">
+     parallel-coordinates-plot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/polar-chart.html">
+     Polar Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/radar-chart.html">
+     radar-chart
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/ternary-contour.html">
+     ternary-contour
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/ternary-plots.html">
+     Ternary Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scientific-charts/wind-rose-charts.html">
+     wind-rose-charts
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../maps/index.html">
+   地理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/choropleth-maps.html">
+     Choropleth Maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/county-choropleth.html">
+     USA County Choropleth Maps in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/lines-on-mapbox.html">
+     lines-on-mapbox
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/lines-on-maps.html">
+     lines-on-maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/mapbox-county-choropleth.html">
+     mapbox-county-choropleth
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/mapbox-density-heatmaps.html">
+     mapbox-density-heatmaps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/mapbox-layers.html">
+     mapbox-layers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/scatter-plots-on-maps.html">
+     scatter-plots-on-maps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../maps/scattermapbox.html">
+     scattermapbox
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistical-charts/index.html">
+   统计
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/2D-Histogram.html">
+     2D Histogram
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/2d-histogram-contour.html">
+     2D Histogram Contour
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/box-plots.html">
+     Box Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/error-bars.html">
+     Error Bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/facet-plots.html">
+     Facet and Trellis Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/histograms.html">
+     Histograms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/linear-fits.html">
+     linear-fits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/marginal-plots.html">
+     marginal-plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/parallel-categories-diagram.html">
+     parallel-categories-diagram
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/splom.html">
+     Scatterplot Matrix
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/strip-charts.html">
+     strip-charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistical-charts/violin.html">
+     violin
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../financial-charts/index.html">
+   金融
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/candlestick-charts.html">
+     Candlestick Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/funnel-charts.html">
+     Funnel Chart
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/ohlc-charts.html">
+     OHLC Charts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/time-series.html">
+     time-series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../financial-charts/waterfall-charts.html">
+     Waterfall Charts
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../controls/index.html">
+   控件
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../controls/custom-buttons.html">
+     自定义按钮
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../controls/dropdowns.html">
+     Dropdown Menus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../controls/sliders.html">
+     Sliders
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../chart-events/index.html">
+   <span class="fa fa-leaf text-success mr-1">
+   </span>
+   Jupyter Widgets 交互
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/00_figurewidget.html">
+     Plotly FigureWidget 概述
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/01_jupyter-lab-tools.html">
+     为 Output 创建一个新视图
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/02_figurewidget-app.html">
+     使用 FigureWidget ipywidgets 进行交互式数据分析
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../chart-events/03_click-events.html">
+     使用点击回调更新点
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animations/index.html">
+   动画
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dash/index.html">
+   Dash
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  混沌
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../about/index.html">
+   关于
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../about/zreferences.html">
+     参考文献
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../CHANGELOG.html">
+     变更日志
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://xinetzone.github.io/sanstyle-book/">
+   Sanstyle Book
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../other/index.html">
+   外部资源
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../other/topic.html">
+     话题
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <div class="w3-padding w3-card-4 w3-pale-green">
+  <a href="https://github.com/xinetzone" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub"
+      data-position="top" data-delay="50">
+      <i class="fab fa-github"></i>
+  </a>
+  <a href="mailto:q735613050@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top"
+      data-delay="50">
+      <i class="fas fa-envelope-open"></i>
+  </a>
+  <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=735613050" class="tooltipped"
+      target="_blank" data-tooltip="QQ联系我: 735613050" data-position="top" data-delay="50">
+      <i class="fab fa-qq"></i>
+  </a>
+  <a href="https://www.zhihu.com/people/liu-xin-wei-55" class="tooltipped" target="_blank"
+      data-tooltip="关注我的知乎: liu-xin-wei-55" data-position="top" data-delay="50">
+      <i class="fab fa-zhihu1">知</i>
+  </a>
+  <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/xinet" class="tooltipped"
+      data-tooltip="领英联系我: xinet" data-position="top" data-delay="50">
+      <i class="fab fa-linkedin"></i>
+  </a>
+  <div><a href="https://github.com/xinetzone/sanstyle">上善若水</a> 版权所有</div>
+</div>
+
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../_sources/tutorial/fundamentals/00_figure-structure.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/tutorial/fundamentals/00_figure-structure.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/xinetzone/plotly-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/xinetzone/plotly-book/issues/new?title=Issue%20on%20page%20%2Ftutorial/fundamentals/00_figure-structure.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/xinetzone/plotly-book/main?urlpath=tree/./tutorial/fundamentals/00_figure-structure.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   1.1.1. 概览
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dash">
+   1.1.2. 在 Dash 中访问图形结构
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   1.1.3. 图作为属性树
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data">
+   1.1.4. 顶级
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     data
+    </span>
+   </code>
+   属性
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layout">
+   1.1.5. 顶级
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     layout
+    </span>
+   </code>
+   属性
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#frames">
+   1.1.6. 顶级
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     frames
+    </span>
+   </code>
+   属性
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#config">
+   1.1.7.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     config
+    </span>
+   </code>
+   对象
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   1.1.8. 定位纸，容器坐标，或轴域坐标
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d">
+   1.1.9. 2D 笛卡尔轨迹类型和子图
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-polar-and-ternary-trace-types-and-subplots">
+   1.1.10. 3D, Polar and Ternary Trace Types and Subplots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#map-trace-types-and-subplots">
+   1.1.11. Map Trace Types and Subplots
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="plotly-figure-structure">
+<span id="id1"></span><h1><span class="section-number">1.1. </span>图数据结构<a class="headerlink" href="#plotly-figure-structure" title="永久链接至标题">¶</a></h1>
+<p>参考：<a class="reference external" href="https://plotly.com/python/figure-structure/">The Figure Data Structure | Python | Plotly</a></p>
+<p>对图的数据结构、轨迹和布局进行说明。</p>
+<div class="section" id="id2">
+<h2><span class="section-number">1.1.1. </span>概览<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">plotly</span></code> Python 包的存在是为了 <a class="reference internal" href="01_creating-and-updating-figures.html#plotly-creating-and-updating-figures"><span class="std std-ref">创建、操作</span></a> 和 <a class="reference internal" href="02_renderers.html#plotly-renderers"><span class="std std-ref">渲染</span></a> 由数据结构(也称为 figures)表示的图(即 charts, plots, maps 和 diagrams)。虽然渲染过程在底层使用 <a class="reference external" href="https://plotly.com/javascript/">Plotly.js JavaScript 库</a>，但使用该模块的 Python 开发人员很少需要直接与 JavaScript 库交互。在 Python 中，图形可以表示为 <code class="docutils literal notranslate"><span class="pre">dict</span></code>，也可以表示为 <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects.Figure</span></code> 类的实例，并在传递给 <code class="docutils literal notranslate"><span class="pre">Plotly.js</span></code> 之前以 <a class="reference external" href="https://json.org/">JavaScript 对象表示法</a>(JSON)的文本形式序列化。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><code class="docutils literal notranslate"><span class="pre">plotly</span></code> 包的推荐入口点是高级 <a class="reference internal" href="03_plotly-express.html#plotly-plotly-express"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">plotly.express</span></code> 模块，也称为 Plotly Express</span></a> ，它由返回 <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects.Figure</span></code> 对象的函数组成。此页面用于记录这些对象所表示的数据结构体系，以便希望更多地了解如何自定义它们或从其他图形组装它们的用户 <a class="reference internal" href="34_graph-objects.html#plotly-graph-objects"><span class="std std-ref">使用 plotly.graph_objects 组件</span></a>。</p>
+</div>
+<p>查看任何 <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects.Figure</span></code> 的底层数据结构，包括那些由 Plotly Express 返回的对象，可以通过 <code class="docutils literal notranslate"><span class="pre">print(fig)</span></code> 或在 JupyterLab 中，使用特殊的 <code class="docutils literal notranslate"><span class="pre">fig.show(&quot;json&quot;)</span></code> 渲染器来实现。图也支持 <code class="docutils literal notranslate"><span class="pre">fig.to_dict()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">fig.to_json()</span></code> 方法。<code class="docutils literal notranslate"><span class="pre">print()</span></code> 图将打印冗长的内容。为简便起见 <code class="docutils literal notranslate"><span class="pre">layout.template</span></code> 被表示为 <code class="docutils literal notranslate"><span class="pre">'...'</span></code>。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;sample figure&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">FigureWidget</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span> <span class="c1"># go.FigureWidget 保证正常显示</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Figure({
+    &#39;data&#39;: [{&#39;hovertemplate&#39;: &#39;x=%{x}&lt;br&gt;y=%{y}&lt;extra&gt;&lt;/extra&gt;&#39;,
+              &#39;legendgroup&#39;: &#39;&#39;,
+              &#39;line&#39;: {&#39;color&#39;: &#39;#636efa&#39;, &#39;dash&#39;: &#39;solid&#39;},
+              &#39;mode&#39;: &#39;lines&#39;,
+              &#39;name&#39;: &#39;&#39;,
+              &#39;orientation&#39;: &#39;v&#39;,
+              &#39;showlegend&#39;: False,
+              &#39;type&#39;: &#39;scatter&#39;,
+              &#39;x&#39;: [a, b, c],
+              &#39;xaxis&#39;: &#39;x&#39;,
+              &#39;y&#39;: array([1, 3, 2]),
+              &#39;yaxis&#39;: &#39;y&#39;}],
+    &#39;layout&#39;: {&#39;legend&#39;: {&#39;tracegroupgap&#39;: 0},
+               &#39;template&#39;: &#39;...&#39;,
+               &#39;title&#39;: {&#39;text&#39;: &#39;sample figure&#39;},
+               &#39;xaxis&#39;: {&#39;anchor&#39;: &#39;y&#39;, &#39;domain&#39;: [0.0, 1.0], &#39;title&#39;: {&#39;text&#39;: &#39;x&#39;}},
+               &#39;yaxis&#39;: {&#39;anchor&#39;: &#39;x&#39;, &#39;domain&#39;: [0.0, 1.0], &#39;title&#39;: {&#39;text&#39;: &#39;y&#39;}}}
+})
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "92629e1485c840fdb547cc7d3d1082d0", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</div>
+<div class="section" id="dash">
+<h2><span class="section-number">1.1.2. </span>在 Dash 中访问图形结构<a class="headerlink" href="#dash" title="永久链接至标题">¶</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="100%"
+    height="630"
+    src="https://dash-gallery.plotly.host/python-docs-dash-snippets/figure-structure"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">1.1.3. </span>图作为属性树<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Plotly.js</span></code> 支持良定义的模式的输入，该模式的总体架构在本页面中进行了解释，<a class="reference external" href="https://plotly.com/python/reference/index/">图参考</a>(图参考本身是由模式的<a class="reference external" href="https://raw.githubusercontent.com/plotly/plotly.js/master/dist/plot-schema.json">机器可读 JSON 表示</a>生成的)中详细记录了它。图以树的形式表示，树的命名节点称为“属性”。树的根节点有三个顶级属性：<code class="docutils literal notranslate"><span class="pre">data</span></code>、 <code class="docutils literal notranslate"><span class="pre">layout</span></code> 和 <code class="docutils literal notranslate"><span class="pre">frames</span></code>。</p>
+<p>在文本和<a class="reference external" href="https://plotly.com/python/reference/index/">图参考</a>中，属性是通过其完整的“路径”来引用的，即以点分隔的父级连接。例如 <code class="docutils literal notranslate"><span class="pre">&quot;layout.width&quot;</span></code> 指的是在一个字典中其键为<code class="docutils literal notranslate"><span class="pre">width</span></code>的属性，该属性是与图根的键<code class="docutils literal notranslate"><span class="pre">layout</span></code>相关联的值。如果父类中的一个是列表而不是字典，当引用抽象中的属性时，会在路径中插入一组方括号 <code class="docutils literal notranslate"><span class="pre">layout.annotations[].text</span></code>。最后，如下所述，顶级 <code class="docutils literal notranslate"><span class="pre">data</span></code> 属性定义了一个称为 “轨迹” 的类型化对象列表，其模式依赖于该类型，这些属性的路径在此引用中列出为 <code class="docutils literal notranslate"><span class="pre">&quot;data[type=scatter].name&quot;</span></code>。</p>
+<p><a class="reference internal" href="34_graph-objects.html#plotly-graph-objects"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code> 模块包含一个自动生成的 Python 类层次结构</span></a>，这些类代表图模式中的非叶子属性，并为它们提供了一个 Python API。当 <a class="reference internal" href="01_creating-and-updating-figures.html#plotly-creating-and-updating-figures"><span class="std std-ref">操作 <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects.Figure</span></code> 对象</span></a> 时，属性可以直接使用 Python 对象属性设置，例如<code class="docutils literal notranslate"><span class="pre">fig.layout.title.font.family=&quot;Open</span> <span class="pre">Sans&quot;</span></code>或使用 <code class="docutils literal notranslate"><span class="pre">update</span></code> 方法和 <a class="reference internal" href="01_creating-and-updating-figures.html#plotly-magic-underscore-notation"><span class="std std-ref">魔法下划线表示法</span></a>，例如 <code class="docutils literal notranslate"><span class="pre">fig.update_layout(title_font_family=&quot;Open</span> <span class="pre">Sans&quot;)</span></code>。</p>
+<p>在构建图形时，没有必要填充每个对象的每个属性。在渲染时，JavaScript 层将计算每个需要的未指定属性的默认值，具体取决于指定的属性，如本页所示。例如<code class="docutils literal notranslate"><span class="pre">layout.xaxis.range</span></code>，它可以显式指定，但是如果没有，将基于链接到该轴的每个跟踪的 <code class="docutils literal notranslate"><span class="pre">x</span></code> 值的范围进行计算。尽管 <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code>模块为属性值提供了 Python 端验证，但 JavaScript 层将忽略未知的属性或畸形的值。还请注意，如果<a class="reference internal" href="06_templates.html#plotly-templates"><span class="std std-ref"> <code class="docutils literal notranslate"><span class="pre">layout.template</span></code> 键</span></a>是存在的(因为它是默认的)，那么默认值将首先从模板的内容中提取，只有在那里缺失时，JavaScript 层才会推断出进一步的默认值。内置模板可以通过设置<code class="docutils literal notranslate"><span class="pre">layout.template=&quot;none&quot;</span></code>来禁用。</p>
+</div>
+<div class="section" id="data">
+<h2><span class="section-number">1.1.4. </span>顶级 <code class="docutils literal notranslate"><span class="pre">data</span></code> 属性<a class="headerlink" href="#data" title="永久链接至标题">¶</a></h2>
+<p>图的三个顶级属性中的第一个是 <code class="docutils literal notranslate"><span class="pre">data</span></code>，它的值必须是一个称为“轨迹”（“traces”）的字典列表。</p>
+<ul class="simple">
+<li><p>每个轨迹可能是超过 40 种类型中的一种(见下面按子图类型组织的列表，包括例如 <a class="reference internal" href="../basic-charts/line-and-scatter.html"><span class="doc">Scatter Plots</span></a>, <a class="reference internal" href="../basic-charts/bar-charts.html"><span class="doc">Bar Charts</span></a>, <a class="reference internal" href="../basic-charts/pie-charts.html"><span class="doc">Pie Charts</span></a>, <a class="reference internal" href="../3d-charts/3d-surface-plots.html"><span class="doc">3D Surface Plots</span></a>, <a class="reference internal" href="../maps/choropleth-maps.html"><span class="doc">Choropleth Maps</span></a> 等)，并表示一组相关的图形标记。每个轨迹必须有一个 <code class="docutils literal notranslate"><span class="pre">type</span></code> 属性，该属性定义其他被允许的属性。</p></li>
+<li><p>每个轨迹都绘制在一个 <a class="reference internal" href="16_subplots.html#plotly-subplots"><span class="std std-ref">Subplots</span></a> 上，该子图的类型必须与轨迹的类型兼容，或者是它自己的子图(参见下面)。</p></li>
+<li><p>轨迹可能只有一个 <a class="reference internal" href="14_legend.html#plotly-legend"><span class="std std-ref">Legends</span></a> 项，但饼图和漏斗区域轨迹（funnelarea traces）除外(见下文)。</p></li>
+<li><p>某些轨迹类型支持 <a class="reference internal" href="20_colorscales.html#plotly-colorscales"><span class="std std-ref">带有关联颜色条的连续颜色</span></a>，当使用 <code class="docutils literal notranslate"><span class="pre">coloraxis</span></code> 属性时，可以通过轨迹内的属性或布局内的属性来控制颜色条。</p></li>
+</ul>
+</div>
+<div class="section" id="layout">
+<h2><span class="section-number">1.1.5. </span>顶级 <code class="docutils literal notranslate"><span class="pre">layout</span></code> 属性<a class="headerlink" href="#layout" title="永久链接至标题">¶</a></h2>
+<p>图的三个顶级属性中的第二个是 <code class="docutils literal notranslate"><span class="pre">layout</span></code>，它的值在文本中称为&quot;布局&quot;，必须是一个字典，包含控制图中非数据相关部分的定位和配置的属性，例如：</p>
+<ul class="simple">
+<li><p>尺寸和边距，定义了“纸张坐标”的边界</p></li>
+<li><p>图的默认值：<a class="reference internal" href="06_templates.html#plotly-templates"><span class="std std-ref">模板</span></a>、<a class="reference internal" href="12_figure-labels.html#plotly-figure-labels"><span class="std std-ref">字体、标题、颜色、悬停标签</span></a> 和 mobar</p></li>
+<li><p>可在容器和/或纸坐标中定位 <a class="reference internal" href="12_figure-labels.html#plotly-figure-labels"><span class="std std-ref">标题</span></a> 和 <a class="reference internal" href="14_legend.html#plotly-legend"><span class="std std-ref">Legends</span></a></p></li>
+<li><p>可在纸坐标中定位 <a class="reference internal" href="12_figure-labels.html#plotly-figure-labels"><span class="std std-ref">标题</span></a> 和 <a class="reference internal" href="20_colorscales.html#plotly-colorscales"><span class="std std-ref">颜色轴和相关的颜色条</span></a></p></li>
+<li><p>各种类型的子图，可在其上绘制多个轨迹，并在纸坐标中定位：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">xaxis</span></code>, <code class="docutils literal notranslate"><span class="pre">yaxis</span></code>, <code class="docutils literal notranslate"><span class="pre">xaxis2</span></code>, <code class="docutils literal notranslate"><span class="pre">yaxis3</span></code> 等：X 和 Y 笛卡儿轴，它们的交点是笛卡儿子图</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scene</span></code>, <code class="docutils literal notranslate"><span class="pre">scene2</span></code>, <code class="docutils literal notranslate"><span class="pre">scene3</span></code>等：3D 场景子图</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ternary</span></code>, <code class="docutils literal notranslate"><span class="pre">ternary2</span></code>, <code class="docutils literal notranslate"><span class="pre">ternary3</span></code>, <code class="docutils literal notranslate"><span class="pre">polar</span></code>, <code class="docutils literal notranslate"><span class="pre">polar2</span></code>, <code class="docutils literal notranslate"><span class="pre">polar3</span></code>, <code class="docutils literal notranslate"><span class="pre">geo</span></code>, <code class="docutils literal notranslate"><span class="pre">geo2</span></code>, <code class="docutils literal notranslate"><span class="pre">geo3</span></code>, <code class="docutils literal notranslate"><span class="pre">mapbox</span></code>, <code class="docutils literal notranslate"><span class="pre">mapbox2</span></code>, <code class="docutils literal notranslate"><span class="pre">mabox3</span></code>等：三元，极坐标，地理或 mapbox 子图</p></li>
+</ul>
+</li>
+<li><p>非数据标记，可以在纸坐标中定位，也可以在链接到二维笛卡尔子图的数据坐标中定位</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotations</span></code>：<a class="reference internal" href="21_text-and-annotations.html#plotly-text-and-annotations"><span class="std std-ref">带有或不带有箭头的文本注释</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shapes</span></code>：<a class="reference internal" href="24_shapes.html#plotly-shapes"><span class="std std-ref">直线，矩形，椭圆或开放或封闭的路径</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">images</span></code>：<a class="reference internal" href="23_images.html#plotly-images"><span class="std std-ref">背景或装饰图像</span></a></p></li>
+</ul>
+</li>
+<li><p>可以在纸坐标中定位的控件，当用户与之交互时，可以触发 Plotly.js 函数</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">updatemenus</span></code>：<a class="reference internal" href="../controls/custom-buttons.html"><span class="doc">自定义按钮</span></a> 和 <a class="reference internal" href="../controls/dropdowns.html"><span class="doc">Dropdown Menus</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sliders</span></code>：<a class="reference internal" href="../controls/sliders.html"><span class="doc">Sliders</span></a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="frames">
+<h2><span class="section-number">1.1.6. </span>顶级 <code class="docutils literal notranslate"><span class="pre">frames</span></code> 属性<a class="headerlink" href="#frames" title="永久链接至标题">¶</a></h2>
+<p>图的三个顶级属性中的第三个是 <code class="docutils literal notranslate"><span class="pre">frames</span></code>，它的值必须是一个字典列表，在 <a class="reference internal" href="../animations/index.html"><span class="doc">animation plot</span></a> 中定义顺序帧。每个帧包含自己的数据属性和其他参数。动画通常是通过 <code class="docutils literal notranslate"><span class="pre">layout.sliders</span></code> 和/或 <code class="docutils literal notranslate"><span class="pre">layout.updatemenus</span></code> 定义的控件来触发和控制的。</p>
+</div>
+<div class="section" id="config">
+<h2><span class="section-number">1.1.7. </span><code class="docutils literal notranslate"><span class="pre">config</span></code> 对象<a class="headerlink" href="#config" title="永久链接至标题">¶</a></h2>
+<p>在 <a class="reference internal" href="02_renderers.html#plotly-renderers"><span class="std std-ref">图渲染</span></a> 时，也可以控制某些不属于图的行为，例如“modebar”的行为，以及图如何与鼠标操作(如滚动等)相关联。包含这些选项的对象称为 <code class="docutils literal notranslate"><span class="pre">config</span></code>，<a class="reference internal" href="09_configuration-options.html#plotly-configuration-options"><span class="std std-ref">并且有自己的文档页</span></a>。它在 Python 中作为 <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects.Figure</span></code> 对象上的 <code class="docutils literal notranslate"><span class="pre">.show()</span></code> 方法的 <code class="docutils literal notranslate"><span class="pre">config</span></code> 关键字参数。</p>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">1.1.8. </span>定位纸，容器坐标，或轴域坐标<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>在图布局中配置的各种图组件支持名为 <code class="docutils literal notranslate"><span class="pre">x</span></code> 或 <code class="docutils literal notranslate"><span class="pre">y</span></code> 的定位属性，它们的值可以在“纸坐标”(有时称为“绘图分数”（“plot fractions”）或“标准化坐标”（“normalized coordinates”）)中指定。例如，包含 <code class="docutils literal notranslate"><span class="pre">layout.xaxis.domain</span></code> 或 <code class="docutils literal notranslate"><span class="pre">layout.legend.x</span></code> 或 <code class="docutils literal notranslate"><span class="pre">layout.annotation[].x</span></code>。</p>
+<p>在纸坐标中定位不是绝对像素，而是相对于原点 <code class="docutils literal notranslate"><span class="pre">(0,0)</span></code> 在 <code class="docutils literal notranslate"><span class="pre">(layout.margin.l,</span> <span class="pre">layout.margin.b)</span></code>，且 <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code> 在 <code class="docutils literal notranslate"><span class="pre">(layout.width-layout.margin.r,</span> <span class="pre">layout.height-layout.margin.t)</span></code> 处d定义的(注：<code class="docutils literal notranslate"><span class="pre">layout.margin</span></code> 是像素值，<code class="docutils literal notranslate"><span class="pre">layout.width</span></code> 也是)。允许纸张坐标值小于 0 或大于 1，指示 plot 边缘的区域。</p>
+<p>要在“纸”坐标中定位一个对象，相应的轴参考系被设置为 <code class="docutils literal notranslate"><span class="pre">&quot;paper&quot;</span></code>。例如，一个形状的 <code class="docutils literal notranslate"><span class="pre">xref</span></code> 属性将被设置为 <code class="docutils literal notranslate"><span class="pre">&quot;paper&quot;</span></code>，因此形状的 <code class="docutils literal notranslate"><span class="pre">x</span></code> 值指的是它在纸坐标中的位置。</p>
+<p>请注意 <code class="docutils literal notranslate"><span class="pre">layout.margin</span></code> 属性的内容，默认情况下是根据某些项(如标题或图例)的位置和尺寸计算的，当将 <code class="docutils literal notranslate"><span class="pre">layout.xaxis.autommargin</span></code> 属性设置为 <code class="docutils literal notranslate"><span class="pre">True</span></code> 时，也可以根据 <code class="docutils literal notranslate"><span class="pre">tick</span></code> 标签的位置和尺寸计算。这将自动增加边界值，从而缩小 <code class="docutils literal notranslate"><span class="pre">(0,0)</span></code> 和 <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code> 点之间定义的物理区域。将某些项定位于小于 0 或大于 1 的纸坐标也会触发此行为。然而，<code class="docutils literal notranslate"><span class="pre">layout.width</span></code> 和 <code class="docutils literal notranslate"><span class="pre">layout.height</span></code> 被认为是既定的，所以这个图永远不会因其内容而增加或减少。</p>
+<p>The figure title may be positioned using “container coordinates” which have <code class="docutils literal notranslate"><span class="pre">(0,0)</span></code> and <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code> anchored at the bottom-left and top-right of the figure, respectively, and therefore are independent of the values of layout.margin.</p>
+<p>Furthermore, shapes, annotations, and images can be placed relative to an axis’s
+domain so that, for instance, an <code class="docutils literal notranslate"><span class="pre">x</span></code> value of <code class="docutils literal notranslate"><span class="pre">0.5</span></code> would place the object
+halfway along the x-axis, regardless of the domain as specified in the
+<code class="docutils literal notranslate"><span class="pre">layout.xaxis.domain</span></code> attribute. This behavior can be specified by adding
+<code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">domain'</span></code> to the axis reference in the axis referencing attribute of the object.
+For example, setting <code class="docutils literal notranslate"><span class="pre">yref</span> <span class="pre">=</span> <span class="pre">'y2</span> <span class="pre">domain'</span></code> for a shape will refer to the length
+and position of the axis named <code class="docutils literal notranslate"><span class="pre">y2</span></code>.</p>
+</div>
+<div class="section" id="d">
+<h2><span class="section-number">1.1.9. </span>2D 笛卡尔轨迹类型和子图<a class="headerlink" href="#d" title="永久链接至标题">¶</a></h2>
+<p>最常用的一种子图是 <a class="reference internal" href="13_axes.html#plotly-axes"><span class="std std-ref">二维笛卡尔（Cartesian）子图</span></a>。与这些子绘图兼容的轨迹支持 <code class="docutils literal notranslate"><span class="pre">xaxis</span></code> 和 <code class="docutils literal notranslate"><span class="pre">yaxis</span></code> 属性，它们的值必须引用图布局部分中的相应对象。例如，如果 <code class="docutils literal notranslate"><span class="pre">xaxis=&quot;x&quot;</span></code>，且 <code class="docutils literal notranslate"><span class="pre">yaxis=&quot;y&quot;</span></code>(这是默认值)，则该轨迹将绘制在轴配置下的 <code class="docutils literal notranslate"><span class="pre">layout.xaxis</span></code> 和 <code class="docutils literal notranslate"><span class="pre">layout.xaxis2</span></code> 的交集</p>
+<p>布局中配置的轴的交点的子绘图上。xaxis和布局。Yaxis，但如果xaxis=&quot;x2&quot;和Yaxis =“y3”，则轨迹绘制在布局中配置的轴的交点上。xaxis2 layout.yaxis3。</p>
+<p>For example, if <code class="docutils literal notranslate"><span class="pre">xaxis=&quot;x&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">yaxis=&quot;y&quot;</span></code> (which is the default) then this trace is drawn on the subplot at the intersection of the axes configured under <code class="docutils literal notranslate"><span class="pre">layout.xaxis</span></code> and <code class="docutils literal notranslate"><span class="pre">layout.yaxis</span></code>, but if <code class="docutils literal notranslate"><span class="pre">xaxis=&quot;x2&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">yaxis=&quot;y3&quot;</span></code> then the trace is drawn at the intersection of the axes configured under <code class="docutils literal notranslate"><span class="pre">layout.xaxis2</span></code> and <code class="docutils literal notranslate"><span class="pre">layout.yaxis3</span></code>. Note that attributes such as <code class="docutils literal notranslate"><span class="pre">layout.xaxis</span></code> and <code class="docutils literal notranslate"><span class="pre">layout.xaxis2</span></code> etc do not have to be explicitly defined, in which case default values will be inferred. Multiple traces of different types can be drawn on the same subplot.</p>
+<p>X- and Y-axes support the <code class="docutils literal notranslate"><span class="pre">type</span></code> attribute, which enables them to represent <a class="reference internal" href="13_axes.html#plotly-axes"><span class="std std-ref">continuous values (<code class="docutils literal notranslate"><span class="pre">type=&quot;linear&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">type=&quot;log&quot;</span></code>)</span></a>, <a class="reference internal" href="../financial-charts/time-series.html"><span class="doc std std-doc">temporal values (<code class="docutils literal notranslate"><span class="pre">type=&quot;date&quot;</span></code>)</span></a> or <a class="reference internal" href="../basic-charts/bar-charts.html"><span class="doc std std-doc">categorical values (<code class="docutils literal notranslate"><span class="pre">type=&quot;category&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">type=&quot;multicategory</span></code>)</span></a>. Axes can also be overlaid on top of one another to create <a class="reference internal" href="15_multiple-axes.html#plotly-multiple-axes"><span class="std std-ref">dual-axis or multiple-axis charts</span></a>. 2-d cartesian subplots lend themselves very well to creating <a class="reference internal" href="../statistical-charts/facet-plots.html"><span class="doc std std-doc">“small multiples” figures, also known as facet or trellis plots</span></a>.</p>
+<p>The following trace types are compatible with 2d-cartesian subplots via the <code class="docutils literal notranslate"><span class="pre">xaxis</span></code> and <code class="docutils literal notranslate"><span class="pre">yaxis</span></code> attributes:</p>
+<ul class="simple">
+<li><p>scatter-like trace types: <a class="reference internal" href="../basic-charts/line-and-scatter.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">scatter</span></code></span></a> and <a class="reference internal" href="../basic-charts/webgl-vs-svg.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">scattergl</span></code></span></a>, which can be used to draw <a class="reference internal" href="../basic-charts/line-and-scatter.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">scatter</span></code></span></a>, <a class="reference internal" href="../basic-charts/line-charts.html"><span class="doc std std-doc">line plots and curves</span></a>, <a class="reference internal" href="../financial-charts/time-series.html"><span class="doc std std-doc">time-series plots</span></a>, <a class="reference internal" href="../basic-charts/bubble-charts.html"><span class="doc std std-doc">bubble charts</span></a>, <a class="reference internal" href="../basic-charts/dot-plots.html"><span class="doc std std-doc">dot plots</span></a> and <a class="reference internal" href="../basic-charts/filled-area-plots.html"><span class="doc std std-doc">filled areas</span></a> and also support <a class="reference internal" href="../statistical-charts/error-bars.html"><span class="doc std std-doc">error bars</span></a></p></li>
+<li><p><a class="reference internal" href="../basic-charts/bar-charts.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">bar</span></code></span></a>, <a class="reference internal" href="../financial-charts/funnel-charts.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">funnel</span></code></span></a>, <a class="reference internal" href="../financial-charts/waterfall-charts.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">waterfall</span></code></span></a>: bar-like trace types which can also be used to draw <a class="reference internal" href="../basic-charts/gantt.html"><span class="doc std std-doc">timelines and Gantt charts</span></a></p></li>
+<li><p><a class="reference internal" href="../statistical-charts/histograms.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">histogram</span></code></span></a>: an <em>aggregating</em> bar-like trace type</p></li>
+<li><p><a class="reference internal" href="../statistical-charts/box-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">box</span></code></span></a> and <a class="reference internal" href="../statistical-charts/box-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">violin</span></code></span></a>: 1-dimensional distribution-like trace types</p></li>
+<li><p><a class="reference internal" href="../statistical-charts/2D-Histogram.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">histogram2d</span></code></span></a> and <a class="reference internal" href="../statistical-charts/2d-histogram-contour.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">histogram2dcontour</span></code></span></a>: 2-dimensional distribution-like density trace types</p></li>
+<li><p><a class="reference internal" href="../scientific-charts/imshow.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">image</span></code></span></a>, <a class="reference internal" href="../scientific-charts/heatmaps.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">heatmap</span></code></span></a> and <a class="reference internal" href="../scientific-charts/contour-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">contour</span></code></span></a>: matrix trace types</p></li>
+<li><p><a class="reference internal" href="../financial-charts/ohlc-charts.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">ohlc</span></code></span></a> and <a class="reference internal" href="../financial-charts/candlestick-charts.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">candlestick</span></code></span></a>: stock-like trace types</p></li>
+<li><p><a class="reference internal" href="../scientific-charts/carpet-plot.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">carpet</span></code></span></a>: a special trace type for building <a class="reference internal" href="../scientific-charts/carpet-plot.html"><span class="doc std std-doc">carpet plots</span></a>, in that other traces can use as subplots (see below)</p></li>
+<li><p><a class="reference internal" href="../statistical-charts/splom.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">splom</span></code></span></a>: multi-dimensional scatter plots which implicitly refer to many 2-d cartesian subplots at once.</p></li>
+</ul>
+</div>
+<div class="section" id="d-polar-and-ternary-trace-types-and-subplots">
+<h2><span class="section-number">1.1.10. </span>3D, Polar and Ternary Trace Types and Subplots<a class="headerlink" href="#d-polar-and-ternary-trace-types-and-subplots" title="永久链接至标题">¶</a></h2>
+<p>Beyond 2D cartesian subplots, figures can include <a class="reference internal" href="../3d-charts/index.html"><span class="doc std std-doc">three-dimensional cartesian subplots</span></a>, <a class="reference internal" href="../scientific-charts/polar-chart.html"><span class="doc std std-doc">polar subplots</span></a> and <a class="reference internal" href="../scientific-charts/ternary-plots.html"><span class="doc std std-doc">ternary subplots</span></a>. The following trace types support attributes named <code class="docutils literal notranslate"><span class="pre">scene</span></code>, <code class="docutils literal notranslate"><span class="pre">polar</span></code> or <code class="docutils literal notranslate"><span class="pre">ternary</span></code>, whose values must refer to corresponding objects in the layout portion of the figure i.e. <code class="docutils literal notranslate"><span class="pre">ternary=&quot;ternary2&quot;</span></code> etc. Note that attributes such as <code class="docutils literal notranslate"><span class="pre">layout.scene</span></code> and <code class="docutils literal notranslate"><span class="pre">layout.ternary2</span></code> etc do not have to be explicitly defined, in which case default values will be inferred. Multiple traces of a compatible type can be placed on the same subplot.</p>
+<p>The following trace types are compatible with 3D subplots via the <code class="docutils literal notranslate"><span class="pre">scene</span></code> attribute, which contains special <a class="reference internal" href="../3d-charts/3d-camera-controls.html"><span class="doc std std-doc">camera controls</span></a>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../3d-charts/3d-scatter-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">scatter3d</span></code></span></a>, which can be used to draw <a class="reference internal" href="../3d-charts/3d-scatter-plots.html"><span class="doc std std-doc">individual markers</span></a>, <a class="reference internal" href="../3d-charts/3d-bubble-charts.html"><span class="doc std std-doc">3d bubble charts</span></a> and <a class="reference internal" href="../3d-charts/3d-line-plots.html"><span class="doc std std-doc">lines and curves</span></a></p></li>
+<li><p><a class="reference internal" href="../3d-charts/3d-surface-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">surface</span></code></span></a> and <a class="reference internal" href="../3d-charts/3d-mesh.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">mesh</span></code></span></a>: 3d surface trace types</p></li>
+<li><p><a class="reference internal" href="../3d-charts/cone-plot.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">cone</span></code></span></a> and <a class="reference internal" href="../3d-charts/streamtube-plot.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">streamtube</span></code></span></a>: 3d vector field trace types</p></li>
+<li><p><a class="reference internal" href="../3d-charts/3d-volume-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">volume</span></code></span></a> and <a class="reference internal" href="../3d-charts/3d-isosurface-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">isosurface</span></code></span></a>: 3d volume trace types</p></li>
+</ul>
+<p>The following trace types are compatible with polar subplots via the <code class="docutils literal notranslate"><span class="pre">polar</span></code> attribute:</p>
+<ul class="simple">
+<li><p>scatter-like trace types: <a class="reference internal" href="../scientific-charts/polar-chart.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">scatterpolar</span></code> and <code class="docutils literal notranslate"><span class="pre">scatterpolargl</span></code></span></a>, which can be used to draw individual markers, <a class="reference internal" href="../scientific-charts/radar-chart.html"><span class="doc std std-doc">curves and filled areas (i.e. radar or spider charts)</span></a></p></li>
+<li><p><a class="reference internal" href="../scientific-charts/wind-rose-charts.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">barpolar</span></code></span></a>: useful for <a class="reference internal" href="../scientific-charts/wind-rose-charts.html"><span class="doc std std-doc">wind roses</span></a> and other polar bar charts</p></li>
+</ul>
+<p>The following trace types are compatible with ternary subplots via the <code class="docutils literal notranslate"><span class="pre">ternary</span></code> attribute:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../scientific-charts/ternary-plots.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">scatterternary</span></code></span></a>, which can be used to draw individual markers, <a class="reference internal" href="../scientific-charts/ternary-contour.html"><span class="doc std std-doc">curves and filled areas</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="map-trace-types-and-subplots">
+<h2><span class="section-number">1.1.11. </span>Map Trace Types and Subplots<a class="headerlink" href="#map-trace-types-and-subplots" title="永久链接至标题">¶</a></h2>
+<p>Figures can include two different types of map subplots: <a class="reference external" href="https://plotly.com/python/map-configuration/">geo subplots for outline maps</a> and <a class="reference external" href="https://plotly.com/python/mapbox-layers/">mapbox subplots for tile maps</a>. The following trace types support attributes named <code class="docutils literal notranslate"><span class="pre">geo</span></code> or <code class="docutils literal notranslate"><span class="pre">mapbox</span></code>, whose values must refer to corresponding objects in the layout i.e. <code class="docutils literal notranslate"><span class="pre">geo=&quot;geo2&quot;</span></code> etc. Note that attributes such as <code class="docutils literal notranslate"><span class="pre">layout.geo2</span></code> and <code class="docutils literal notranslate"><span class="pre">layout.mapbox</span></code> etc do not have to be explicitly defined, in which case default values will be inferred. Multiple traces of a compatible type can be placed on the same subplot.</p>
+<p>The following trace types are compatible with geo subplots via the <code class="docutils literal notranslate"><span class="pre">geo</span></code> attribute:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://plotly.com/python/scatter-plots-on-maps/"><code class="docutils literal notranslate"><span class="pre">scattergeo</span></code></a>, which can be used to draw <a class="reference external" href="https://plotly.com/python/scatter-plots-on-maps/">individual markers</a>, <a class="reference external" href="https://plotly.com/python/lines-on-maps/">line and curves</a> and filled areas on outline maps</p></li>
+<li><p><a class="reference external" href="https://plotly.com/python/choropleth-maps/"><code class="docutils literal notranslate"><span class="pre">choropleth</span></code></a>: <a class="reference external" href="https://plotly.com/python/choropleth-maps/">colored polygons</a> on outline maps</p></li>
+</ul>
+<p>The following trace types are compatible with mapbox subplots via the <code class="docutils literal notranslate"><span class="pre">mapbox</span></code> attribute:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://plotly.com/python/scattermapbox/"><code class="docutils literal notranslate"><span class="pre">scattermapbox</span></code></a>, which can be used to draw <a class="reference external" href="https://plotly.com/python/scattermapbox/">individual markers</a>, <a class="reference external" href="https://plotly.com/python/lines-on-mapbox/">lines and curves</a> and <a class="reference external" href="https://plotly.com/python/filled-area-on-mapbox/">filled areas</a> on tile maps</p></li>
+<li><p><a class="reference external" href="https://plotly.com/python/mapbox-county-choropleth/"><code class="docutils literal notranslate"><span class="pre">choroplethmapbox</span></code></a>: colored polygons on tile maps</p></li>
+<li><p><a class="reference external" href="https://plotly.com/python/mapbox-density-heatmaps/"><code class="docutils literal notranslate"><span class="pre">densitymapbox</span></code></a>: density heatmaps on tile maps</p></li>
+</ul>
+</div>
+</div>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"92629e1485c840fdb547cc7d3d1082d0": {"model_module": "jupyterlab-plotly", "model_module_version": "^5.1.0", "model_name": "FigureModel", "state": {"_config": {"plotlyServerURL": "https://plot.ly"}, "_data": [{"hovertemplate": "x=%{x}<br>y=%{y}<extra></extra>", "legendgroup": "", "line": {"color": "#636efa", "dash": "solid"}, "mode": "lines", "name": "", "orientation": "v", "showlegend": false, "type": "scatter", "uid": "ee19a666-1b51-4c5b-a9ff-d699f4af37be", "x": ["a", "b", "c"], "xaxis": "x", "y": [1, 3, 2], "yaxis": "y"}], "_dom_classes": [], "_js2py_layoutDelta": {}, "_js2py_pointsCallback": {}, "_js2py_relayout": {}, "_js2py_restyle": {}, "_js2py_traceDeltas": {}, "_js2py_update": {}, "_last_layout_edit_id": 0, "_last_trace_edit_id": 0, "_layout": {"legend": {"tracegroupgap": 0}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": "sample figure"}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "x"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "y"}}}, "_model_module": "jupyterlab-plotly", "_model_module_version": "^5.1.0", "_model_name": "FigureModel", "_py2js_addTraces": {}, "_py2js_animate": {}, "_py2js_deleteTraces": {}, "_py2js_moveTraces": {}, "_py2js_relayout": {}, "_py2js_removeLayoutProps": {}, "_py2js_removeTraceProps": {}, "_py2js_restyle": {}, "_py2js_update": {}, "_view_count": 0, "_view_module": "jupyterlab-plotly", "_view_module_version": "^5.1.0", "_view_name": "FigureView"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xinetzone/plotly-book",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "ai"
+        },
+        kernelOptions: {
+            kernelName: "ai",
+            path: "./tutorial/fundamentals"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ai'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page"><span class="section-number">1. </span>基础（处理中）</a>
+    <a class='right-next' id="next-link" href="01_creating-and-updating-figures.html" title="next page"><span class="section-number">1.2. </span><span class="fa fa-leaf text-success mr-1"></span>创建和更新图</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            <p class="w3-card w3-pale-blue w3-padding">
+  Copyright © 2021
+  <a href="https://sanstylelab.github.io/">SanstyleLab</a> | 
+  Powered by <a href="https://github.com/executablebooks/jupyter-book">Jupyter Book</a>.
+</p>
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
