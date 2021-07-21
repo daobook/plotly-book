@@ -51,7 +51,7 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
 
 ## 图作为属性树
 
-`Plotly.js` 支持良定义的模式的输入，该模式的总体架构在本页面中进行了解释，[图参考](https://plotly.com/python/reference/index/)(图参考本身是由模式的[机器可读 JSON 表示](https://raw.githubusercontent.com/plotly/plotly.js/master/dist/plot-schema.json)生成的)中详细记录了它。图以树的形式表示，树的命名节点称为“属性”。树的根节点有三个顶级属性：`data`、 `layout` 和 `frames`。
+`Plotly.js` 支持良定义的模式的输入，该模式的总体架构在本页面中进行了解释，[图参考](https://plotly.com/python/reference/index/)（图参考本身是由模式的[机器可读 JSON 表示](https://raw.githubusercontent.com/plotly/plotly.js/master/dist/plot-schema.json)生成的）中详细记录了它。图以树的形式表示，树的命名节点称为“属性”。树的根节点有三个顶级属性：`data`、 `layout` 和 `frames`。
 
 在文本和[图参考](https://plotly.com/python/reference/index/)中，属性是通过其完整的“路径”来引用的，即以点分隔的父级连接。例如 `"layout.width"` 指的是在一个字典中其键为`width`的属性，该属性是与图根的键`layout`相关联的值。如果父类中的一个是列表而不是字典，当引用抽象中的属性时，会在路径中插入一组方括号 `layout.annotations[].text`。最后，如下所述，顶级 `data` 属性定义了一个称为 “轨迹” 的类型化对象列表，其模式依赖于该类型，这些属性的路径在此引用中列出为 `"data[type=scatter].name"`。
 
@@ -63,7 +63,7 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
 
 图的三个顶级属性中的第一个是 `data`，它的值必须是一个称为“轨迹”（"traces"）的字典列表。
 
-* 每个轨迹可能是超过 40 种类型中的一种(见下面按子图类型组织的列表，包括例如 {doc}`../basic-charts/line-and-scatter`, {doc}`../basic-charts/bar-charts`, {doc}`../basic-charts/pie-charts`, {doc}`../3d-charts/3d-surface-plots`, {doc}`../maps/choropleth-maps` 等)，并表示一组相关的图形标记。每个轨迹必须有一个 `type` 属性，该属性定义其他被允许的属性。
+* 每个轨迹可能是超过 40 种类型中的一种(见下面按子图类型组织的列表，包括例如 [](plotly:basic-charts/line-and-scatter)、[](plotly:basic-charts/bar-charts)、[](plotly:basic-charts/pie-charts)、[](plotly:3d-charts/3d-surface-plots)、[](plotly:maps/choropleth-maps)，并表示一组相关的图形标记。每个轨迹必须有一个 `type` 属性，该属性定义其他被允许的属性。
 * 每个轨迹都绘制在一个 [](plotly:subplots) 上，该子图的类型必须与轨迹的类型兼容，或者是它自己的子图(参见下面)。
 * 轨迹可能只有一个 [](plotly:legend) 项，但饼图和漏斗区域轨迹（funnelarea traces）除外(见下文)。
 * 某些轨迹类型支持 [带有关联颜色条的连续颜色](plotly:colorscales)，当使用 `coloraxis` 属性时，可以通过轨迹内的属性或布局内的属性来控制颜色条。
@@ -85,8 +85,8 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
   * `shapes`：[直线，矩形，椭圆或开放或封闭的路径](plotly:shapes)
   * `images`：[背景或装饰图像](plotly:images)
 - 可以在纸坐标中定位的控件，当用户与之交互时，可以触发 Plotly.js 函数
-  * `updatemenus`：{doc}`../controls/custom-buttons` 和 {doc}`../controls/dropdowns`
-  * `sliders`：{doc}`../controls/sliders`
+  * `updatemenus`：[](plotly:controls/custom-buttons) 和 [](plotly:controls/dropdowns)
+  * `sliders`：[](plotly:controls/sliders)
 
 ## 顶级 `frames` 属性
 

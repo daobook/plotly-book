@@ -12,6 +12,7 @@ kernelspec:
   name: ai
 ---
 
+(plotly:controls/custom-buttons)=
 # 自定义按钮
 
 参考：[Custom Buttons | Python | Plotly](https://plotly.com/python/custom-buttons/)
