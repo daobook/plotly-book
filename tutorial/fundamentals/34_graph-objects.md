@@ -4,8 +4,6 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.10.3
 kernelspec:
   display_name: ai
   language: python
@@ -47,7 +45,11 @@ import plotly.express as px
 
 fig = px.bar(df, x="Fruit", y="Number Eaten", color="Contestant", barmode="group")
 fig.show()
+```
 
+不使用 `px`：
+
+```python
 import plotly.graph_objects as go
 
 fig = go.Figure()
