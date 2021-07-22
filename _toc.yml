@@ -37,6 +37,8 @@ parts:
     sections:
     - glob: tutorial/chart-events/**
   - file: tutorial/animations/index
+    sections:
+    - glob: tutorial/animations/**
   - file: tutorial/dash/index
 
 - caption: 混沌
