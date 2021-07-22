@@ -51,7 +51,7 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
 
 ## 图作为属性树
 
-`Plotly.js` 支持良定义的模式的输入，该模式的总体架构在本页面中进行了解释，[图参考](https://plotly.com/python/reference/index/)(图参考本身是由模式的[机器可读 JSON 表示](https://raw.githubusercontent.com/plotly/plotly.js/master/dist/plot-schema.json)生成的)中详细记录了它。图以树的形式表示，树的命名节点称为“属性”。树的根节点有三个顶级属性：`data`、 `layout` 和 `frames`。
+`Plotly.js` 支持良定义的模式的输入，该模式的总体架构在本页面中进行了解释，[图参考](https://plotly.com/python/reference/index/)（图参考本身是由模式的[机器可读 JSON 表示](https://raw.githubusercontent.com/plotly/plotly.js/master/dist/plot-schema.json)生成的）中详细记录了它。图以树的形式表示，树的命名节点称为“属性”。树的根节点有三个顶级属性：`data`、 `layout` 和 `frames`。
 
 在文本和[图参考](https://plotly.com/python/reference/index/)中，属性是通过其完整的“路径”来引用的，即以点分隔的父级连接。例如 `"layout.width"` 指的是在一个字典中其键为`width`的属性，该属性是与图根的键`layout`相关联的值。如果父类中的一个是列表而不是字典，当引用抽象中的属性时，会在路径中插入一组方括号 `layout.annotations[].text`。最后，如下所述，顶级 `data` 属性定义了一个称为 “轨迹” 的类型化对象列表，其模式依赖于该类型，这些属性的路径在此引用中列出为 `"data[type=scatter].name"`。
 
@@ -63,7 +63,7 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
 
 图的三个顶级属性中的第一个是 `data`，它的值必须是一个称为“轨迹”（"traces"）的字典列表。
 
-* 每个轨迹可能是超过 40 种类型中的一种(见下面按子图类型组织的列表，包括例如 {doc}`../basic-charts/line-and-scatter`, {doc}`../basic-charts/bar-charts`, {doc}`../basic-charts/pie-charts`, {doc}`../3d-charts/3d-surface-plots`, {doc}`../maps/choropleth-maps` 等)，并表示一组相关的图形标记。每个轨迹必须有一个 `type` 属性，该属性定义其他被允许的属性。
+* 每个轨迹可能是超过 40 种类型中的一种(见下面按子图类型组织的列表，包括例如 [](plotly:basic-charts/line-and-scatter)、[](plotly:basic-charts/bar-charts)、[](plotly:basic-charts/pie-charts)、[](plotly:3d-charts/3d-surface-plots)、[](plotly:maps/choropleth-maps)，并表示一组相关的图形标记。每个轨迹必须有一个 `type` 属性，该属性定义其他被允许的属性。
 * 每个轨迹都绘制在一个 [](plotly:subplots) 上，该子图的类型必须与轨迹的类型兼容，或者是它自己的子图(参见下面)。
 * 轨迹可能只有一个 [](plotly:legend) 项，但饼图和漏斗区域轨迹（funnelarea traces）除外(见下文)。
 * 某些轨迹类型支持 [带有关联颜色条的连续颜色](plotly:colorscales)，当使用 `coloraxis` 属性时，可以通过轨迹内的属性或布局内的属性来控制颜色条。
@@ -85,8 +85,8 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
   * `shapes`：[直线，矩形，椭圆或开放或封闭的路径](plotly:shapes)
   * `images`：[背景或装饰图像](plotly:images)
 - 可以在纸坐标中定位的控件，当用户与之交互时，可以触发 Plotly.js 函数
-  * `updatemenus`：{doc}`../controls/custom-buttons` 和 {doc}`../controls/dropdowns`
-  * `sliders`：{doc}`../controls/sliders`
+  * `updatemenus`：[](plotly:controls/custom-buttons) 和 [](plotly:controls/dropdowns)
+  * `sliders`：[](plotly:controls/sliders)
 
 ## 顶级 `frames` 属性
 
@@ -96,7 +96,7 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
 
 在 [](plotly:renderers) 时，也可以控制某些不属于图的行为，例如“modebar”的行为，以及图如何与鼠标操作(如滚动等)相关联。包含这些选项的对象称为 `config`，[并且有自己的文档页](plotly:configuration-options)。它在 Python 中作为 `plotly.graph_objects.Figure` 对象上的 `.show()` 方法的 `config` 关键字参数。
 
-## 定位纸，容器坐标，或轴域坐标
+## 定位：纸坐标，容器坐标，或轴域坐标
 
 在图布局中配置的各种图组件支持名为 `x` 或 `y` 的定位属性，它们的值可以在“纸坐标”(有时称为“绘图分数”（"plot fractions"）或“标准化坐标”（"normalized coordinates"）)中指定。例如，包含 `layout.xaxis.domain` 或 `layout.legend.x` 或 `layout.annotation[].x`。
 
@@ -106,35 +106,25 @@ IFrame(snippet_url + 'figure-structure', width='100%', height=630)
 
 请注意 `layout.margin` 属性的内容，默认情况下是根据某些项(如标题或图例)的位置和尺寸计算的，当将 `layout.xaxis.autommargin` 属性设置为 `True` 时，也可以根据 `tick` 标签的位置和尺寸计算。这将自动增加边界值，从而缩小 `(0,0)` 和 `(1,1)` 点之间定义的物理区域。将某些项定位于小于 0 或大于 1 的纸坐标也会触发此行为。然而，`layout.width` 和 `layout.height` 被认为是既定的，所以这个图永远不会因其内容而增加或减少。
 
-The figure title may be positioned using "container coordinates" which have `(0,0)` and `(1,1)` anchored at the bottom-left and top-right of the figure, respectively, and therefore are independent of the values of layout.margin.
+图形标题可以使用“容器坐标”来定位，容器坐标 `(0,0)` 和 `(1,1)` 分别锚定在图形的左下和右上，因此与 `layout.margin` 的值无关。
 
-Furthermore, shapes, annotations, and images can be placed relative to an axis's
-domain so that, for instance, an `x` value of `0.5` would place the object
-halfway along the x-axis, regardless of the domain as specified in the
-`layout.xaxis.domain` attribute. This behavior can be specified by adding
-`' domain'` to the axis reference in the axis referencing attribute of the object.
-For example, setting `yref = 'y2 domain'` for a shape will refer to the length
-and position of the axis named `y2`.
+此外，形状、注释和图像可以相对于轴的域放置，例如，`x` 值为 `0.5` 将把对象放置在 x 轴的中间位置，而不管 `layout.xaxis.domain` 属性中指定的域是什么。可以通过在对象的 `axis` 引用属性中向 axis 引用添加 `' domain'` 来指定此行为。例如，为一个形状设置 `yref = 'y2 domain'` 将引用命名为 `y2` 的轴的长度和位置。
 
 ## 2D 笛卡尔轨迹类型和子图
 
-最常用的一种子图是 [二维笛卡尔（Cartesian）子图](plotly:axes)。与这些子绘图兼容的轨迹支持 `xaxis` 和 `yaxis` 属性，它们的值必须引用图布局部分中的相应对象。例如，如果 `xaxis="x"`，且 `yaxis="y"`(这是默认值)，则该轨迹将绘制在轴配置下的 `layout.xaxis` 和 `layout.xaxis2` 的交集
+最常用的一种子图是 [二维笛卡尔（Cartesian）子图](plotly:axes)。与这些子绘图兼容的轨迹支持 `xaxis` 和 `yaxis` 属性，它们的值必须引用图布局部分中的相应对象。例如，如果 `xaxis="x"`，且 `yaxis="y"`(这是默认值)，则该轨迹将绘制在轴配置下的 `layout.xaxis` 和 `layout.xaxis2` 的交集，但如果 `xaxis="x2"` 和 `yaxis="y3"`，则轨迹绘制在布局中配置的轴 `layout.xaxis2` 和 `layout.yaxis3` 的交点上。注意像 `layout.xaxis` 和 `layout.xaxis2` 等这样的属性不需要显式定义，在这种情况下将推断默认值。在同一副图上可以绘制多个不同类型的轨迹。
 
-布局中配置的轴的交点的子绘图上。xaxis和布局。Yaxis，但如果xaxis="x2"和Yaxis ="y3"，则轨迹绘制在布局中配置的轴的交点上。xaxis2 layout.yaxis3。
-
-For example, if `xaxis="x"`, and `yaxis="y"` (which is the default) then this trace is drawn on the subplot at the intersection of the axes configured under `layout.xaxis` and `layout.yaxis`, but if `xaxis="x2"` and `yaxis="y3"` then the trace is drawn at the intersection of the axes configured under `layout.xaxis2` and `layout.yaxis3`. Note that attributes such as `layout.xaxis` and `layout.xaxis2` etc do not have to be explicitly defined, in which case default values will be inferred. Multiple traces of different types can be drawn on the same subplot.
-
-X- and Y-axes support the `type` attribute, which enables them to represent [continuous values (`type="linear"`, `type="log"`)](plotly:axes), [temporal values (`type="date"`)](../financial-charts/time-series) or [categorical values (`type="category"`, `type="multicategory`)](../basic-charts/bar-charts). Axes can also be overlaid on top of one another to create [dual-axis or multiple-axis charts](plotly:multiple-axes). 2-d cartesian subplots lend themselves very well to creating ["small multiples" figures, also known as facet or trellis plots](../statistical-charts/facet-plots).
+X 与 Y 轴支持 `type` 属性，它能够表示 [连续值 (`type="linear"`, `type="log"`)](plotly:axes), [瞬时值 (`type="date"`)](plotly:financial-charts/time-series) or [分类值 (`type="category"`, `type="multicategory`)](../basic-charts/bar-charts)。Axes can also be overlaid on top of one another to create [dual-axis or multiple-axis charts](plotly:multiple-axes). 2-d cartesian subplots lend themselves very well to creating ["small multiples" figures, also known as facet or trellis plots](../statistical-charts/facet-plots).
 
 The following trace types are compatible with 2d-cartesian subplots via the `xaxis` and `yaxis` attributes:
 
-* scatter-like trace types: [`scatter`](../basic-charts/line-and-scatter) and [`scattergl`](../basic-charts/webgl-vs-svg), which can be used to draw [`scatter`](../basic-charts/line-and-scatter), [line plots and curves](../basic-charts/line-charts), [time-series plots](../financial-charts/time-series), [bubble charts](../basic-charts/bubble-charts), [dot plots](../basic-charts/dot-plots) and [filled areas](../basic-charts/filled-area-plots) and also support [error bars](../statistical-charts/error-bars)
-* [`bar`](../basic-charts/bar-charts), [`funnel`](../financial-charts/funnel-charts), [`waterfall`](../financial-charts/waterfall-charts): bar-like trace types which can also be used to draw [timelines and Gantt charts](../basic-charts/gantt)
+* scatter-like trace types: [`scatter`](../basic-charts/line-and-scatter) and [`scattergl`](../basic-charts/webgl-vs-svg), which can be used to draw [`scatter`](../basic-charts/line-and-scatter), [line plots and curves](../basic-charts/line-charts), [time-series plots](plotly:financial-charts/time-series), [bubble charts](../basic-charts/bubble-charts), [dot plots](../basic-charts/dot-plots) and [filled areas](../basic-charts/filled-area-plots) and also support [error bars](../statistical-charts/error-bars)
+* [`bar`](../basic-charts/bar-charts), [`funnel`](plotly:financial-charts/funnel-charts), [`waterfall`](plotly:financial-charts/waterfall-charts): bar-like trace types which can also be used to draw [timelines and Gantt charts](../basic-charts/gantt)
 * [`histogram`](../statistical-charts/histograms): an *aggregating* bar-like trace type
 * [`box`](../statistical-charts/box-plots) and [`violin`](../statistical-charts/box-plots): 1-dimensional distribution-like trace types
 * [`histogram2d`](../statistical-charts/2D-Histogram) and [`histogram2dcontour`](../statistical-charts/2d-histogram-contour): 2-dimensional distribution-like density trace types
 * [`image`](../scientific-charts/imshow), [`heatmap`](../scientific-charts/heatmaps) and [`contour`](../scientific-charts/contour-plots): matrix trace types
-* [`ohlc`](../financial-charts/ohlc-charts) and [`candlestick`](../financial-charts/candlestick-charts): stock-like trace types
+* [`ohlc`](plotly:financial-charts/ohlc-charts) and [`candlestick`](plotly:financial-charts/candlestick-charts): stock-like trace types
 * [`carpet`](../scientific-charts/carpet-plot): a special trace type for building [carpet plots](../scientific-charts/carpet-plot), in that other traces can use as subplots (see below)
 * [`splom`](../statistical-charts/splom): multi-dimensional scatter plots which implicitly refer to many 2-d cartesian subplots at once.
 
@@ -173,3 +163,32 @@ The following trace types are compatible with mapbox subplots via the `mapbox`�
 *   [`choroplethmapbox`](https://plotly.com/python/mapbox-county-choropleth/): colored polygons on tile maps
 *   [`densitymapbox`](https://plotly.com/python/mapbox-density-heatmaps/): density heatmaps on tile maps
 
+## Traces Which Are Their Own Subplots
+
+Certain trace types cannot share subplots, and hence have no attribute to map to a corresponding subplot in the layout. Instead, these traces are their own subplot and support a `domain` attribute for position, which enables the trace to be positioned in paper coordinates (see below). With the exception of `pie` and `funnelarea`, such traces also do not support legends (see below)
+
+The following trace types are their own subplots and support a domain attribute:
+
+* [`pie`](https://plotly.com/python/pie-charts/) and [`funnelarea`](https://plotly.com/python/waterfall-charts/): one-level part-to-whole relationships with legend items
+* [`sunburst`](https://plotly.com/python/sunburst-charts/) and [`treemap`](https://plotly.com/python/treemaps/): hierarchical multi-level part-to-whole relationships
+* [`parcoords`](https://plotly.com/python/parallel-coordinates-plot/) and [`parcats`](https://plotly.com/python/parallel-categories-diagram/): continuous and categorical multidimensional figures with [parallel coordinates](https://plotly.com/python/parallel-coordinates-plot/) and [parallel sets](https://plotly.com/python/parallel-categories-diagram/)
+* [`sankey`](https://plotly.com/python/sankey-diagram/): [flow diagrams](https://plotly.com/python/sankey-diagram/)
+* [`table`](https://plotly.com/python/table/): [text-based tables](https://plotly.com/python/table/)
+* [`indicator`](https://plotly.com/python/indicator/): big numbers, [gauges](https://plotly.com/python/gauge-charts/), and [bullet charts](https://plotly.com/python/bullet-charts/)
+
+## Carpet Trace Types and Subplots
+
+Certain trace types use [traces of type `carpet` as a subplot](https://plotly.com/python/carpet-plot/). These support a `carpet` attribute whose value must match the value of the `carpet` attribute of the `carpet` trace they are to be drawn on. Multiple compatible traces can be placed on the same `carpet` trace.
+
+The following trace types are compatible with `carpet` trace subplots via the `carpet` attribute:
+
+* [`scattercarpet`](https://plotly.com/python/carpet-scatter/), which can be used to draw individual markers, curves and filled areas
+* [`contourcarpet`](https://plotly.com/python/carpet-plot/)
+
+## Trace Types, Legends and Color Bars
+
+Traces of most types can be optionally associated with a single legend item in the [legend](https://plotly.com/python/legend/). Whether or not a given trace appears in the legend is controlled via the `showlegend` attribute. Traces which are their own subplots (see above) do not support this, with the exception of traces of type `pie` and `funnelarea` for which every distinct color represented in the trace gets a separate legend item. Users may show or hide traces by clicking or double-clicking on their associated legend item. Traces that support legend items also support the `legendgroup` attribute, and all traces with the same legend group are treated the same way during click/double-click interactions.
+
+The fact that legend items are linked to traces means that when using [discrete color](https://plotly.com/python/discrete-color/), a figure must have one trace per color in order to get a meaningful legend. [Plotly Express has robust support for discrete color](https://plotly.com/python/discrete-color/) to make this easy.
+
+Traces which support [continuous color](https://plotly.com/python/colorscales/) can also be associated with color axes in the layout via the `coloraxis` attribute. Multiple traces can be linked to the same color axis. Color axes have a legend-like component called color bars. Alternatively, color axes can be configured within the trace itself.

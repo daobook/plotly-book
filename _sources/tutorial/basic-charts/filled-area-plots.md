@@ -12,6 +12,7 @@ kernelspec:
   name: ai
 ---
 
+(plotly:basic-charts/filled-area-plots)=
 # Python 中的填充区域 plot
 
 参考：[Filled Area Plots | Python | Plotly](https://plotly.com/python/filled-area-plots/)
